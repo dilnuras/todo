@@ -15,3 +15,6 @@ def go (request):
 
 def second (request):
     return HttpResponse("test 2 page")
+
+def three (request):
+    return render(request,"book.html")
