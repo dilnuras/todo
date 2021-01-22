@@ -3,7 +3,7 @@ from django.db import models
 
 class ToDo(models.Model):
     text = models.CharField(max_length=100)
-    created_at = models.DateField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     is_closed = models.BooleanField(default=False)
     is_favorite = models.BooleanField(default=False)
 
@@ -14,5 +14,5 @@ class Book(models.Model):
     price = models.CharField(max_length=100)
     genre = models.CharField(max_length=100)
     author = models.CharField(max_length=100)
-    year = models.DateField(auto_now_add = True)
-    published_at = models.DateField(auto_now_add = True)
+    year = models.DateTimeField(auto_now_add = True)
+    published_at = models.DateTimeField(auto_now_add = True)
