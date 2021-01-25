@@ -1,17 +1,55 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>book</title>
+    <link rel="stylesheet" href="{% static 'styles2/index.css' %}">
+    <!--<link rel="stylesheet" href="./styles/checkbox.css">-->
+    <link rel="stylesheet" href="{% static 'styles2/checkbox.css' %}">
 </head>
-<body>
-    <h2> hello</h2>
-     {% for book in book_list %}
-        <h2>{{ book.title }}</h2>
-        <h2>{{ book.sutitle }}</h2>
-        <h2>{{ book.description}}</h2>
-     {% endfor%}
 
+<body>
+    <section>
+        <div class="create_container">
+            <form action="{% url 'add-book' %}" method="POST">
+                {% csrf_token %}
+                <input class="create_input" type="text" placeholder="Название книги" name="book_text" /> !
+                <button class="create_button">Искать</button>
+            </form>
+        </div>
+
+
+        <div class="book_container">
+            {% for book in book_list %}
+            <div class="book_item">
+                <div class="book_item_header">
+                    <label class="checkbox_kontainer">
+                        <input type="checkbox" />
+                        <span class="checkmark"></span>
+                    </label>
+
+                    <h2>{{ book_list.title }}</h2>
+                    
+                    
+                </div>
+                <div class="book_item_footer">
+                    <p>{{ book.published_at }}</p>
+                    <div class="action_buttons">
+                        <img src="{% static './icons/icons8-star-48 (1).png' %}" />
+                        <img src="{% static './icons/icons8-delete-bin-50.png' %}" />
+                    </div>
+
+                </div>
+            </div>
+
+            {% endfor%}
+
+        </div>
+
+    </section>
 </body>
+
 </html>
