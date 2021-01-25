@@ -40,4 +40,10 @@ def add_book(request):
     year = form ["three.year"]
     book = Book(title=title, sutitle=sutitle, description=description, price=price,genre=genre, author=author, year=year)
     book.save()
-    return redirect(three)
+    return redirect(book)
+
+
+def delete_todo(request, id):
+    todo = ToDo.objects.get(id=id)
+    todo.delete()
+    return redirect(test)
