@@ -24,9 +24,12 @@ urlpatterns = [
     path("", homepage, name = "home"),
     path("test/", test, name = "test"),
     path("test2/", second),
-    path("test3/",three, name = "three"),
+    path("book/", book),
     path("add-todo/", add_todo, name="add-todo"),
-    path("add-book", add_book, name ="add-book"),
+    path("add-book/", add_book, name ="add-book"),
     path("delete-todo/<id>", delete_todo, name="delete-todo"),
+    path("delete-book/<id>", delete_book, name='delete-book'),
+    path("mark-book/<id>", mark_book, name='mark-book'),
+    path("mark-todo/<id>", mark_todo, name='mark-todo'),
 ]   + static(settings.STATIC_URL,document_root=settings.STATIC_ROOT) \
     + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

@@ -15,41 +15,77 @@
     <section>
         <div class="create_container">
             <form action="{% url 'add-book' %}" method="POST">
-                {% csrf_token %}
-                <input class="create_input" type="text" placeholder="Название книги" name="book_text" /> !
+                <table class="tabl">
+                    {% csrf_token %}
+                    <tr>
+                        <td class="des"><span>Заголовок<span class="star"> *</span></span></td>
+                        <td class="title"><input class="create_input" type="text" placeholder="Название книги" name="book_text" /></td>
+                    </tr>
+                    <tr>
+                        <td class="des"><span>Подзаголовок<span class="star"> *</span></span></td>
+                        <td class="subtitle"><input class="create_input" type="text" name="subtitle"/></td>
+                    </tr>
+                    <tr>
+                        <td class="des"><span>Описание<span class="star"> *</span></span></td>
+                        <td class="description"><textarea name="description" class="description" cols="70" rows="10" placeholder="Описание книги"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td class="des"><span>Цена<span class="star"> *</span></span></td>
+                        <td class="price"><input class="create_input" type="number" name="price"/></td>
+                    </tr>
+                    <tr>
+                        <td class="des"><span>Жанр<span class="star"> *</span></span></td>
+                        <td class="genre"><input class="create_input" type="text" name="genre"/></td>
+                    </tr>
+                    <tr>
+                        <td class="des"><span>Автор<span class="star"> *</span></span></td>
+                        <td class="author"><input class="create_input" type="text" name="author"/></td>
+                    </tr>
+                    <tr>
+                        <td class="des"><span>Год выпуска<span class="star"> *</span></span></td>
+                        <td class="year"><input class="create_input" type="date" name="year"/></td>
+                    </tr>
+                </table>
                 <button class="create_button">Искать</button>
             </form>
         </div>
 
-
         <div class="book_container">
             {% for book in book_list %}
-            <div class="book_item">
+            <div class="book_item
+                 {% if book.is_favorite %}
+                    marked
+                 {% endif %}
+
+            ">
                 <div class="book_item_header">
                     <label class="checkbox_kontainer">
                         <input type="checkbox" />
                         <span class="checkmark"></span>
                     </label>
 
-                    <h2>{{ book_list.title }}</h2>
-                    
+                    <h2>{{ book.title }}</h2>
                     
                 </div>
                 <div class="book_item_footer">
                     <p>{{ book.published_at }}</p>
                     <div class="action_buttons">
-                        <img src="{% static './icons/icons8-star-48 (1).png' %}" />
-                        <img src="{% static './icons/icons8-delete-bin-50.png' %}" />
+                        {% if book.is_favorite %}
+
+                            <a href="{% url 'mark-book' book.id %}"><img src="{% static './icons/icons8-star-48.png' %}" /></a>
+                        {% else %}
+                            <a href="{% url 'mark-book' book.id %}"><img src="{% static './icons/icons8-star-48 (1).png' %}" /></a>
+                           
+                        {% endif %}
+
+                        <a href="{% url 'delete-book' book.id %}"><img src="{% static './icons/icons8-delete-bin-50.png' %}" ></a>
                     </div>
 
                 </div>
             </div>
-
             {% endfor%}
 
         </div>
-
     </section>
 </body>
-
 </html>

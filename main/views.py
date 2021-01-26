@@ -17,7 +17,7 @@ def go (request):
 def second (request):
     return HttpResponse("test 2 page")
 
-def three (request):
+def book (request):
     book_list = Book.objects.all()
     return render(request, "book.html", {"book_list": book_list})
 
@@ -28,22 +28,37 @@ def add_todo(request):
     todo.save()
     return redirect(test)
 
-def add_book(request):
-    form = request.POST
-    book = form["book_text"]
-    title = form["three.title"]
-    sutitle = form["three.sutitle"]
-    description = form["three.description"]
-    price = form["three.price"]
-    genre = form["three.genre"]
-    author = form["three.author"]
-    year = form ["three.year"]
-    book = Book(title=title, sutitle=sutitle, description=description, price=price,genre=genre, author=author, year=year)
-    book.save()
-    return redirect(book)
-
-
 def delete_todo(request, id):
     todo = ToDo.objects.get(id=id)
     todo.delete()
     return redirect(test)
+
+def mark_todo(request, id):
+    todo = ToDo.objects.get(id=id)
+    todo.is_favorite = not todo.is_favorite
+    todo.save()
+    return redirect(test)
+
+def add_book(request):
+    form = request.POST
+    title = form["book_text"]
+    subtitle = form["subtitle"]
+    description = form["description"]
+    price = form["price"]
+    genre = form["genre"]
+    author = form["author"]
+    year = form ["year"]
+    todo = Book(title=title, sutitle=subtitle, description=description, price=price,genre=genre, author=author, year=year)
+    todo.save()
+    return redirect(book)
+
+def delete_book(request, id):
+    books = Book.objects.get(id=id)
+    books.delete()
+    return redirect(book)
+    
+def mark_book(request, id):
+    books = Book.objects.get(id=id)
+    books.is_favorite = not books.is_favorite
+    books.save()
+    return redirect(book)
