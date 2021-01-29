@@ -62,3 +62,10 @@ def mark_book(request, id):
     books.is_favorite = not books.is_favorite
     books.save()
     return redirect(book)
+
+def close_book(request, id):
+    books =  Book.objects.get(id=id)
+    books.is_closed = not books.is_closed
+    books.save()
+    return redirect(book)
+
