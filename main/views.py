@@ -69,3 +69,7 @@ def close_book(request, id):
     books.save()
     return redirect(book)
 
+def detail(request,id):
+    book_object = Book.objects.get(id=id)  
+    return render(request, "books_detail.html", {"book_object": book_object})
+
